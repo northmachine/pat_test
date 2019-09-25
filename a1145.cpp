@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int maxn = 100010;
+int a[maxn];
+int ms,n,m;
+bool isPrime(int x){
+	if(x<2)return false;
+	for(int i=2;i*i<=x;i++){
+		if(x%i==0)return false;
+	}
+	return true;
+}
+int main(){
+	scanf("%d %d %d",&ms,&n,&m);
+	while(!isPrime(ms))ms++;
+	for(int i=0;i<n;i++){
+		int x;
+		scanf("%d",&x);
+		int j=0;
+		while(a[(x+j*j)%ms]!=0&&j<ms)j++;
+		if(j<ms)a[(x+j*j)%ms] = x;
+		else{
+			printf("%d cannot be inserted.\n",x);
+		}
+	}
+	float res = 0.0;
+	for(int i =0;i<m;i++){
+		int x;
+		scanf("%d",&x);
+		int j=0;
+		while(a[(x+j*j)%ms]!=0&&a[(x+j*j)%ms]!=x&&j<ms)j++;
+		res+=(j+1);
+	}
+	res = res/(float)m;
+	printf("%.1f",ceil(res*10)/10);
+	return 0;
+}
